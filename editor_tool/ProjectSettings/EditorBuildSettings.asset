@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/GizmoTestScene.unity
+    guid: 59b8577ccdbce124d83176bf81793033
   m_configObjects: {}
