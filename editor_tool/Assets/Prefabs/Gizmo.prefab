@@ -84,7 +84,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8585649425868728098}
-  m_Text: Name
+  m_Text: 'New
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -112,7 +114,7 @@ GameObject:
   - component: {fileID: 8585649426845581973}
   m_Layer: 0
   m_Name: Gizmo
-  m_TagString: Untagged
+  m_TagString: Gizmo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +194,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8585649426845581975}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

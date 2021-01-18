@@ -10,7 +10,8 @@ namespace technical.test.editor
         public string Name;   
         public Vector3 Position;
 
-        private GameObject gizmoObject;
+        [HideInInspector]
+        public GameObject gizmoObject;
 
         public Gizmo(string name, Vector3 position,GameObject gizmoPrefab)
         {
@@ -25,16 +26,37 @@ namespace technical.test.editor
             UnityEngine.Object.DestroyImmediate(gizmoObject);
         }
 
-        public Vector3 Update(){
-            Debug.Log(Tools.handlePosition);
-            return Tools.handlePosition;        }
+        public Gizmo Update(Gizmo gizmo){
+            if(gizmo.Position == Tools.handlePosition ){
+                //Debug.Log("Tools");
+                Position = Tools.handlePosition;   
+            }else{
+                Debug.Log("Position");
+                Position = gizmo.Position;
+                gizmoObject.transform.position = Position;
+            }
+            Name = gizmo.Name;  
+            ChangeName();   
+            return this;        
+        }
 
         public void EditMode(){
             Tools.hidden = !Tools.hidden;
+            Selection.activeGameObject = gizmoObject;
             if( Tools.hidden ){
                 Tools.current = Tool.Move;
-                Selection.activeGameObject = gizmoObject;
             }
+        }
+
+        private void ChangeName(){
+            gizmoObject.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = Name;
+            gizmoObject.name = Name;
+        }
+
+        public Gizmo ResetPosition(){
+            Position = new Vector3(0f,0f,0f);
+            gizmoObject.transform.position = Position;
+            return this;
         }
 
         

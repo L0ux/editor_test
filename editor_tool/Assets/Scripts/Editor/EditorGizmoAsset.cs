@@ -31,6 +31,11 @@ namespace technical.test.editor
             _gizmos[_gizmos.GetUpperBound(0)] = new Gizmo("new",new Vector3(0f,0f,0f),gizmoPrefab);
         }
 
+        public void AddGizmo(Vector3 position){
+            Array.Resize(ref _gizmos,_gizmos.Length+1);
+            _gizmos[_gizmos.GetUpperBound(0)] = new Gizmo("new",position,gizmoPrefab);
+        }
+
         public void RemoveGizmo(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
@@ -44,12 +49,22 @@ namespace technical.test.editor
             }
         }
 
-        public void UpdateGizmo(int index){
-            _gizmos[index].Position = _gizmos[index].Update();
+        public void UpdateGizmo(int index,Gizmo gizmo){
+            _gizmos[index] = _gizmos[index].Update(gizmo);
+        }
+
+        public void ResetGizmoPosition(Gizmo gizmo){
+            for( int i = 0; i < _gizmos.Length; i++){
+                if( gizmo.Equals(_gizmos[i]) ){
+                    _gizmos[i] = _gizmos[i].ResetPosition();
+                    Debug.Log(_gizmos[i].Position);
+                    break;
+                }
+            }
         }
 
         public void OnValidate() {
-            Debug.Log(Time.time);
+            //Debug.Log(Time.time);
         }
 
     }
