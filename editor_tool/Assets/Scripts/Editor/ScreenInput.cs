@@ -18,24 +18,26 @@ namespace technical.test.editor
         static void OnSceneGUI (SceneView sceneview) {
             if (Event.current.button == 1)
             {   
+                //Si le clique droit est appuyé
                 if (Event.current.type == EventType.MouseDown)
                 {        
                     Vector3 distanceFromCam = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y,0);
                     Plane plane = new Plane(Vector3.forward, distanceFromCam);
                     Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-                    float distanceIntersection = 0.0f;
+                    float distanceIntersection = 0.0f;                      
                     plane.Raycast(ray, out distanceIntersection);
-                    clearLog();
+                    //Permet de récupérer le point d'intersection avec le clique et la scene
+                    clearLog();                                             //warning présent à chaque clique
                     Gizmo[] gizmos = data.GetGizmo();
                     GenericMenu menu = new GenericMenu();
                     bool alreadyTouched = false;
                     foreach (Gizmo gizmo in gizmos)
                     {   
                         float radius = gizmo.gizmoObject.GetComponent<SphereCollider>().radius * 1.5f;
-                        if( Vector3.Distance(gizmo.Position,ray.GetPoint(distanceIntersection)) < radius){
+                        if( Vector3.Distance(gizmo.Position,ray.GetPoint(distanceIntersection)) < radius){  //Si le clique est sur le gizmo
                             alreadyTouched = true;
                             if(gizmo.isEditing){
-                                menu.AddItem(new GUIContent("Stop edit position"), false, Stop, gizmo);
+                                menu.AddItem(new GUIContent("Stop edit position"), false, Move, gizmo);
                             }else{
                                 menu.AddItem(new GUIContent("Edit position"), false, Move, gizmo);
                             }
@@ -71,11 +73,6 @@ namespace technical.test.editor
         }
 
         static void Move(object obj) {
-            Gizmo gizmo = (Gizmo) obj;
-            data.EditGizmo(gizmo);
-        }
-
-        static void Stop(object obj) {
             Gizmo gizmo = (Gizmo) obj;
             data.EditGizmo(gizmo);
         }

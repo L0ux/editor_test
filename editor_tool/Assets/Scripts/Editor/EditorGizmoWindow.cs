@@ -26,7 +26,7 @@ namespace technical.test.editor
             UpdateGizmoList();
         }
 
-
+        //Met à jour la liste des gizmos
         private void UpdateGizmoList(){
             _gizmos = data.GetGizmo();
         }
@@ -34,7 +34,6 @@ namespace technical.test.editor
         void OnGUI()
         {   
             this.autoRepaintOnSceneChange =  true;
-            //data.OnValidate();
             UpdateGizmoList();
             GUILayout.Label ("Gizmo Editor", EditorStyles.boldLabel);
             if (GUILayout.Button("Add Gizmo",GUILayout.ExpandWidth(false)))
@@ -52,6 +51,8 @@ namespace technical.test.editor
 
             for(int i = 0; i < _gizmos.Length; i++)
             {   
+
+                //Modifie la couleur du text si le gizmo est editable
                 if(_gizmos[i].isEditing){
                     colorStyle.normal.textColor = Color.red;
                 }else{

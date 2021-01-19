@@ -2,7 +2,7 @@
 # Outil d'édition de gizmo  
   
 Création d'un éditeur de gizmo pour modifier leurs positions ainsi que leurs noms depuis une fenêtre dédiée ou depuis la scène.  
-  
+Le projet à été réaliser via Unity 2019.4.10f1 sous Ubuntu 20.04.1 LTS.
   
   
 ## Fonctionnalités  

@@ -26,10 +26,13 @@ namespace technical.test.editor
             isEditing = false;
         }
 
+
+        //Détruit le GameObject lié au gizmo
         public void DestroyObject(){
             UnityEngine.Object.DestroyImmediate(gizmoObject);
         }
 
+        //Met à jour la position et le nom du gizmo
         public Gizmo Update(Gizmo gizmo){
             Position = Tools.handlePosition;
             Position = new Vector3((float)Math.Round(Position.x,2),(float)Math.Round(Position.y,2),(float)Math.Round(Position.z,2));
@@ -38,6 +41,7 @@ namespace technical.test.editor
             return this;        
         }
 
+        //Rend le gizmo editable ou non
         public void EditMode(){
             isEditing = !isEditing;
             Tools.hidden = !Tools.hidden;
@@ -52,6 +56,7 @@ namespace technical.test.editor
             gizmoObject.name = Name;
         }
 
+        //Reset la position du gizmo
         public Gizmo ResetPosition(){
             Position = new Vector3(0f,0f,0f);
             gizmoObject.transform.position = Position;

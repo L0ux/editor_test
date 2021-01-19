@@ -17,10 +17,13 @@ namespace technical.test.editor
             return "Gizmo count : " + _gizmos.Length;
         }
 
+
+        //Récupère la liste des gizmos
         public Gizmo[] GetGizmo(){
             return _gizmos;
         }
 
+        //Rend éditable un gizmo
         public void EditGizmo(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
@@ -30,16 +33,19 @@ namespace technical.test.editor
             }
         }
 
+        //Ajoute un gizmo au centre
         public void AddGizmo(){
             Array.Resize(ref _gizmos,_gizmos.Length+1);
             _gizmos[_gizmos.GetUpperBound(0)] = new Gizmo("new",new Vector3(0f,0f,0f),gizmoPrefab);
         }
 
+        //Ajoute un gizmo à la position donnée
         public void AddGizmo(Vector3 position){
             Array.Resize(ref _gizmos,_gizmos.Length+1);
             _gizmos[_gizmos.GetUpperBound(0)] = new Gizmo("new",position,gizmoPrefab);
         }
 
+        //Retire un gizmo à la liste
         public void RemoveGizmo(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
@@ -53,6 +59,8 @@ namespace technical.test.editor
             }
         }
 
+
+        //Met à jour le gizmo donné
         public void UpdateGizmo(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
@@ -62,6 +70,7 @@ namespace technical.test.editor
             }
         }
 
+        //Reset la position du gizmo
         public void ResetGizmoPosition(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
@@ -69,10 +78,6 @@ namespace technical.test.editor
                     break;
                 }
             }
-        }
-
-        public void OnValidate() {
-            //Debug.Log(Time.time);
         }
 
     }
