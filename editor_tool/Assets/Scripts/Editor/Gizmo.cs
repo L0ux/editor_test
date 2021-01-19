@@ -27,14 +27,15 @@ namespace technical.test.editor
         }
 
         public Gizmo Update(Gizmo gizmo){
-            if(gizmo.Position == Tools.handlePosition ){
+            /*if(gizmo.Position == Tools.handlePosition ){
                 //Debug.Log("Tools");
                 Position = Tools.handlePosition;   
             }else{
                 Debug.Log("Position");
                 Position = gizmo.Position;
                 gizmoObject.transform.position = Position;
-            }
+            }*/
+            Position = Tools.handlePosition; 
             Name = gizmo.Name;  
             ChangeName();   
             return this;        

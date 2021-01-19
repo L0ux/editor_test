@@ -92,10 +92,12 @@ namespace technical.test.editor
                     data.SetGizmo(i,_gizmos[i]);
                     editGizmo[i] = !editGizmo[i];
                 }
-                if (GUILayout.Button("Remove Gizmo",GUILayout.ExpandWidth(false)))
+                if (GUILayout.Button("Delete Gizmo",GUILayout.ExpandWidth(false)))
                 {
-                    data.RemoveGizmo(_gizmos[i]);
-                    UpdateGizmoList();
+                    if(EditorUtility.DisplayDialog("Warning delete confirmation","Confirm delete "+_gizmos[i].Name+ " gizmo ?","Confirm","Cancel") ){
+                        data.RemoveGizmo(_gizmos[i]);
+                        UpdateGizmoList();
+                    }
                 }
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();

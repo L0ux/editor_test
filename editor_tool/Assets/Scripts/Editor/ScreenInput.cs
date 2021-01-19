@@ -27,21 +27,24 @@ namespace technical.test.editor
                     plane.Raycast(ray, out distanceIntersection);
                     clearLog();
                     Gizmo[] gizmos = data.GetGizmo();
+                    GenericMenu menu = new GenericMenu();
+                    bool alreadyTouched = false;
                     foreach (Gizmo gizmo in gizmos)
                     {   
+                        Debug.Log("??");
                         float radius = gizmo.gizmoObject.GetComponent<SphereCollider>().radius;
-                        GenericMenu menu = new GenericMenu();
                         if( Vector3.Distance(gizmo.Position,ray.GetPoint(distanceIntersection)) < radius){
                             Gizmo touched = gizmo;
+                            alreadyTouched = true;
                             menu.AddItem(new GUIContent("Reset position"), false, Reset, touched);
                             menu.AddItem(new GUIContent("Delete gizmo"), false, Delete, touched);
                             menu.ShowAsContext();
                             break;
-                        }else{
-                            menu.AddItem(new GUIContent("Add gizmo"), false, Add, ray.GetPoint(distanceIntersection));
-                            menu.ShowAsContext();
-                            break;
                         }
+                    }
+                    if( !alreadyTouched ){
+                        menu.AddItem(new GUIContent("Add gizmo"), false, Add, ray.GetPoint(distanceIntersection));
+                        menu.ShowAsContext();
                     }
                 }
             }
@@ -54,7 +57,9 @@ namespace technical.test.editor
 
         static void Delete (object obj) {
             Gizmo gizmo = (Gizmo) obj;
-            data.RemoveGizmo(gizmo);
+            if(EditorUtility.DisplayDialog("Warning delete confirmation","Confirm delete "+gizmo.Name+ " gizmo ?","Confirm","Cancel") ){
+                data.RemoveGizmo(gizmo);
+            }
         }
 
         static void Add(object obj) {
