@@ -12,9 +12,6 @@ namespace technical.test.editor
         
         [SerializeField]
         public EditorGizmoAsset data;
-
-        private bool[] editGizmo;
-
         
         // Add menu item named "My Window" to the Window menu
         [MenuItem("Window/Custom/Editor Gizmos")]
@@ -33,18 +30,16 @@ namespace technical.test.editor
 
         private void UpdateGizmoList(){
             _gizmos = data.GetGizmo();
-            Array.Resize(ref editGizmo,_gizmos.Length);
         }
         
         void OnGUI()
         {   
+            data.OnValidate();
             UpdateGizmoList();
             GUILayout.Label ("Gizmo Editor", EditorStyles.boldLabel);
             if (GUILayout.Button("Add Gizmo",GUILayout.ExpandWidth(false)))
             {
                 data.AddGizmo();
-                data.OnValidate();
-                UpdateGizmoList();
             }
             GUILayout.BeginHorizontal();
             GUILayout.Label("Text");
@@ -57,7 +52,7 @@ namespace technical.test.editor
 
             for(int i = 0; i < _gizmos.Length; i++)
             {   
-                if(editGizmo[i]){
+                if(_gizmos[i].isEditing){
                     colorStyle.normal.textColor = Color.red;
                 }else{
                     if(EditorGUIUtility.isProSkin){
@@ -68,7 +63,8 @@ namespace technical.test.editor
                 }
 
                 GUILayout.BeginHorizontal();
-                if(editGizmo[i]){
+                if(_gizmos[i].isEditing){
+                    //Undo.RegisterCompleteObjectUndo(_gizmos[i].Position,"gizmo");
                     _gizmos[i].Name = EditorGUILayout.TextField (_gizmos[i].Name,colorStyle,GUILayout.ExpandWidth(false));
                     GUILayout.Label("x");
                     _gizmos[i].Position.x = EditorGUILayout.FloatField(_gizmos[i].Position.x,colorStyle,GUILayout.ExpandWidth(false));
@@ -76,7 +72,7 @@ namespace technical.test.editor
                     _gizmos[i].Position.y = EditorGUILayout.FloatField(_gizmos[i].Position.y,colorStyle,GUILayout.ExpandWidth(false));
                     GUILayout.Label("z");
                     _gizmos[i].Position.z = EditorGUILayout.FloatField(_gizmos[i].Position.z,colorStyle,GUILayout.ExpandWidth(false));
-                    data.UpdateGizmo(i,_gizmos[i]);
+                    data.UpdateGizmo(_gizmos[i]);
                 }else{
                     EditorGUILayout.TextField (_gizmos[i].Name,colorStyle,GUILayout.ExpandWidth(false));
                     GUILayout.Label("x");
@@ -89,14 +85,12 @@ namespace technical.test.editor
 
                 if (GUILayout.Button("Edit"))
                 {
-                    data.SetGizmo(i,_gizmos[i]);
-                    editGizmo[i] = !editGizmo[i];
+                    data.EditGizmo(_gizmos[i]);
                 }
                 if (GUILayout.Button("Delete Gizmo",GUILayout.ExpandWidth(false)))
                 {
                     if(EditorUtility.DisplayDialog("Warning delete confirmation","Confirm delete "+_gizmos[i].Name+ " gizmo ?","Confirm","Cancel") ){
                         data.RemoveGizmo(_gizmos[i]);
-                        UpdateGizmoList();
                     }
                 }
                 GUILayout.FlexibleSpace();

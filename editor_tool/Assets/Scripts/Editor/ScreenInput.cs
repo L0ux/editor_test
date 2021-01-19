@@ -31,13 +31,16 @@ namespace technical.test.editor
                     bool alreadyTouched = false;
                     foreach (Gizmo gizmo in gizmos)
                     {   
-                        Debug.Log("??");
-                        float radius = gizmo.gizmoObject.GetComponent<SphereCollider>().radius;
+                        float radius = gizmo.gizmoObject.GetComponent<SphereCollider>().radius * 1.5f;
                         if( Vector3.Distance(gizmo.Position,ray.GetPoint(distanceIntersection)) < radius){
-                            Gizmo touched = gizmo;
                             alreadyTouched = true;
-                            menu.AddItem(new GUIContent("Reset position"), false, Reset, touched);
-                            menu.AddItem(new GUIContent("Delete gizmo"), false, Delete, touched);
+                            if(gizmo.isEditing){
+                                menu.AddItem(new GUIContent("Stop edit position"), false, Stop, gizmo);
+                            }else{
+                                menu.AddItem(new GUIContent("Edit position"), false, Move, gizmo);
+                            }
+                            menu.AddItem(new GUIContent("Reset position"), false, Reset, gizmo);
+                            menu.AddItem(new GUIContent("Delete gizmo"), false, Delete, gizmo);
                             menu.ShowAsContext();
                             break;
                         }
@@ -50,12 +53,12 @@ namespace technical.test.editor
             }
         }
 
-        static void Reset (object obj) {
+        static void Reset(object obj) {
             Gizmo gizmo = (Gizmo) obj;
             data.ResetGizmoPosition(gizmo);
         }
 
-        static void Delete (object obj) {
+        static void Delete(object obj) {
             Gizmo gizmo = (Gizmo) obj;
             if(EditorUtility.DisplayDialog("Warning delete confirmation","Confirm delete "+gizmo.Name+ " gizmo ?","Confirm","Cancel") ){
                 data.RemoveGizmo(gizmo);
@@ -65,6 +68,16 @@ namespace technical.test.editor
         static void Add(object obj) {
             Vector3 position = (Vector3) obj;
             data.AddGizmo(position);
+        }
+
+        static void Move(object obj) {
+            Gizmo gizmo = (Gizmo) obj;
+            data.EditGizmo(gizmo);
+        }
+
+        static void Stop(object obj) {
+            Gizmo gizmo = (Gizmo) obj;
+            data.EditGizmo(gizmo);
         }
 
 

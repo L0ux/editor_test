@@ -9,6 +9,9 @@ namespace technical.test.editor
     {
         public string Name;   
         public Vector3 Position;
+        
+        [HideInInspector]
+        public bool isEditing;
 
         [HideInInspector]
         public GameObject gizmoObject;
@@ -17,9 +20,10 @@ namespace technical.test.editor
         {
             Name = name;
             Position = position;
-            gizmoObject = UnityEngine.Object.Instantiate(gizmoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            gizmoObject = UnityEngine.Object.Instantiate(gizmoPrefab, position, Quaternion.identity);
             gizmoObject.name = Name;
             Tools.hidden = true;
+            isEditing = false;
         }
 
         public void DestroyObject(){
@@ -27,21 +31,15 @@ namespace technical.test.editor
         }
 
         public Gizmo Update(Gizmo gizmo){
-            /*if(gizmo.Position == Tools.handlePosition ){
-                //Debug.Log("Tools");
-                Position = Tools.handlePosition;   
-            }else{
-                Debug.Log("Position");
-                Position = gizmo.Position;
-                gizmoObject.transform.position = Position;
-            }*/
-            Position = Tools.handlePosition; 
+            Position = Tools.handlePosition;
+            Position = new Vector3((float)Math.Round(Position.x,2),(float)Math.Round(Position.y,2),(float)Math.Round(Position.z,2));
             Name = gizmo.Name;  
             ChangeName();   
             return this;        
         }
 
         public void EditMode(){
+            isEditing = !isEditing;
             Tools.hidden = !Tools.hidden;
             Selection.activeGameObject = gizmoObject;
             if( Tools.hidden ){

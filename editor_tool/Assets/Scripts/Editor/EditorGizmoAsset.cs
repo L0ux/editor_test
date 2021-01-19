@@ -21,9 +21,13 @@ namespace technical.test.editor
             return _gizmos;
         }
 
-        public void SetGizmo(int index,Gizmo g){
-            _gizmos[index].EditMode();
-            _gizmos[index] = g;
+        public void EditGizmo(Gizmo gizmo){
+            for( int i = 0; i < _gizmos.Length; i++){
+                if( gizmo.Equals(_gizmos[i]) ){
+                    _gizmos[i].EditMode();
+                    break;
+                }
+            }
         }
 
         public void AddGizmo(){
@@ -49,15 +53,19 @@ namespace technical.test.editor
             }
         }
 
-        public void UpdateGizmo(int index,Gizmo gizmo){
-            _gizmos[index] = _gizmos[index].Update(gizmo);
+        public void UpdateGizmo(Gizmo gizmo){
+            for( int i = 0; i < _gizmos.Length; i++){
+                if( gizmo.Equals(_gizmos[i]) ){
+                    _gizmos[i].Update(gizmo);
+                    break;
+                }
+            }
         }
 
         public void ResetGizmoPosition(Gizmo gizmo){
             for( int i = 0; i < _gizmos.Length; i++){
                 if( gizmo.Equals(_gizmos[i]) ){
                     _gizmos[i] = _gizmos[i].ResetPosition();
-                    Debug.Log(_gizmos[i].Position);
                     break;
                 }
             }
