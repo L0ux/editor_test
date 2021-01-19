@@ -23,7 +23,6 @@ namespace technical.test.editor
 
         public void Awake()
         {
-            //Debug.Log("Awake");
             UpdateGizmoList();
         }
 
@@ -34,7 +33,8 @@ namespace technical.test.editor
         
         void OnGUI()
         {   
-            data.OnValidate();
+            this.autoRepaintOnSceneChange =  true;
+            //data.OnValidate();
             UpdateGizmoList();
             GUILayout.Label ("Gizmo Editor", EditorStyles.boldLabel);
             if (GUILayout.Button("Add Gizmo",GUILayout.ExpandWidth(false)))
@@ -64,7 +64,6 @@ namespace technical.test.editor
 
                 GUILayout.BeginHorizontal();
                 if(_gizmos[i].isEditing){
-                    //Undo.RegisterCompleteObjectUndo(_gizmos[i].Position,"gizmo");
                     _gizmos[i].Name = EditorGUILayout.TextField (_gizmos[i].Name,colorStyle,GUILayout.ExpandWidth(false));
                     GUILayout.Label("x");
                     _gizmos[i].Position.x = EditorGUILayout.FloatField(_gizmos[i].Position.x,colorStyle,GUILayout.ExpandWidth(false));
