@@ -8,16 +8,16 @@ Création d'un éditeur de gizmo pour modifier leurs positions ainsi que leurs n
 ## Fonctionnalités  
   
 - Fenêtre d'édition de gizmo  
-- Affichage du nom  
-- Affichage de la position  
-- Bouton d'ajout de gizmo  
-- Bouton de suppression d'un gizmo  
-- Bouton d'édition du gizmo  
+    - Affichage du nom  
+    - Affichage de la position  
+    - Bouton d'ajout de gizmo  
+    - Bouton de suppression d'un gizmo  
+    - Bouton d'édition du gizmo  
 - Menu volant sur la scène lors d'un clique droit  
-- Bouton d'ajout d'un gizmo à la position cliquée  
-- Bouton de modification de la position du gizmo cliqué  
-- Bouton de réinitialisation de la position du gizmo cliqué  
-- Bouton de suppression du gizmo cliqué  
+    - Bouton d'ajout d'un gizmo à la position cliquée  
+    - Bouton de modification de la position du gizmo cliqué  
+    - Bouton de réinitialisation de la position du gizmo cliqué  
+    - Bouton de suppression du gizmo cliqué  
   
 Affichage des gizmos dans la scène.  
 Bouton d'accès à l'outil d'édition dans l'objet " EditorGizmoAsset " ou via Window -> Custom -> Editor Gizmos  
